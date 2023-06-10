@@ -83,9 +83,16 @@ const enemies = [];
 
 const spawnEnemies = function () {
   setInterval(() => {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-    const radius = 30;
+    const radius = Math.random() * (30 - 8) + 8;
+    let x;
+    let y;
+    if (Math.random() < 0.5) {
+      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+      y = Math.random() * canvas.height;
+    } else {
+      x = Math.random() * canvas.width;
+      y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+    }
     const color = 'green';
     const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x); //right angle of a triangle to the mouse click
     const velocity = {
