@@ -1,6 +1,6 @@
 This is a particle shooter game that I made in order to learn more about HTML5 Canvas and get better at Object Oriented Programming in JavaScript.
 
-Please try out the game here: https://particle-shooter-java-script-game.vercel.app/
+Please try out the game here: (https://particle-shooter-java-script-game-samincgs.vercel.app/)
 
 #### Idea:
 
