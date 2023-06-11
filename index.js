@@ -1,14 +1,25 @@
 // CANVAS
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
+
+//HTML ELEMENTS
 const scoreEl = document.querySelector('#score');
+const startGameEl = document.querySelector('#startGameEl');
+const modalEl = document.querySelector('#modalEl');
+const mainScoreEl = document.querySelector('#mainScoreEl');
+
 // CANVAS WIDTH & HEIGHT
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-// PLAYER VARIABLES
+// VARIABLES
 const x = canvas.width / 2;
 const y = canvas.height / 2;
+let player;
+let projectiles;
+let enemies;
+let particles;
+let score = 0;
 
 // INITIALIZING PLAYER OBJECT
 class Player {
@@ -107,11 +118,16 @@ class Particle {
 }
 
 // USING THE PLAYER CLASS
-const player = new Player(x, y, 12, '#fff');
-
-const projectiles = [];
-const enemies = [];
-const particles = [];
+const init = function () {
+  player = new Player(x, y, 12, '#fff');
+  projectiles = [];
+  enemies = [];
+  particles = [];
+  score = 0;
+  scoreEl.textContent = 0;
+  mainScoreEl.textContent = 0;
+};
+init();
 
 const spawnEnemies = function () {
   setInterval(() => {
@@ -139,7 +155,6 @@ const spawnEnemies = function () {
 
 // ANIMATION LOOP FUNCTION
 let animationId;
-let score = 0;
 const animate = function () {
   animationId = requestAnimationFrame(animate);
   c.fillStyle = 'rgba(0,0,0,0.1)';
@@ -176,6 +191,9 @@ const animate = function () {
 
     if (distance - enemy.radius - player.radius < 1) {
       cancelAnimationFrame(animationId);
+      score;
+      modalEl.style.display = 'flex';
+      mainScoreEl.innerHTML = score;
     }
 
     projectiles.forEach((proj, pi) => {
@@ -227,6 +245,10 @@ addEventListener('click', (e) => {
   projectiles.push(new Projectile(x, y, 5, 'white', velocity));
 });
 
-// CALLING ANIMATION LOOP FUNCTION
-animate();
-spawnEnemies();
+startGameEl.addEventListener('click', () => {
+  // CALLING ANIMATION LOOP FUNCTION
+  init();
+  animate();
+  spawnEnemies();
+  modalEl.style.display = 'none';
+});
