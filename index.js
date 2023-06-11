@@ -1,3 +1,4 @@
+console.log(gsap);
 // CANVAS
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
@@ -142,10 +143,20 @@ const animate = function () {
       const distance = Math.hypot(proj.x - enemy.x, proj.y - enemy.y);
       if (distance - enemy.radius - proj.radius < 1) {
         //when projectile touches enemy
-        setTimeout(() => {
-          enemies.splice(i, 1);
-          projectiles.splice(pi, 1);
-        }, 0);
+
+        if (enemy.radius - 10 > 5) {
+          gsap.to(enemy, {
+            radius: enemy.radius - 10,
+          });
+          setTimeout(() => {
+            projectiles.splice(pi, 1);
+          }, 0);
+        } else {
+          setTimeout(() => {
+            enemies.splice(i, 1);
+            projectiles.splice(pi, 1);
+          }, 0);
+        }
       }
     });
   });
